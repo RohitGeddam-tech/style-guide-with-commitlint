@@ -8,8 +8,8 @@ const packageJsonPath = path.join(process.cwd(), 'package.json');
 // Read and parse package.json
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-(async () => {
-  // Prompt the user for the project name
+// Function to prompt and update the project name
+async function promptAndUpdateProjectName() {
   const response = await prompts({
     type: 'text',
     name: 'name',
@@ -24,4 +24,13 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   console.log(`Updated project name to: ${response.name}`);
+}
+
+// Run the promptAndUpdateProjectName function twice
+(async () => {
+  console.log("First run:");
+  await promptAndUpdateProjectName();
+
+  console.log("\nSecond run:");
+  await promptAndUpdateProjectName();
 })();
